@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Life_of_a_T_ShirtApp: App {
+    @StateObject var setting = Settings()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(setting)
         }
     }
 }

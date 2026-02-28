@@ -8,17 +8,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var setting: Settings
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        CurrentView()
     }
+}
+
+struct CurrentView: View {
+    @EnvironmentObject var setting: Settings
+
+    var body: some View {
+        switch (setting.progress.chapter) {
+        case (.one):
+            ChapterOne()
+        case (.two):
+            ChapterTwo()
+        case (.three):
+            ChapterThree()
+        case (.four):
+            ChapterFour()
+        }
+    }
+}
+
+// game settings
+class Settings: ObservableObject {
+    @Published var progress = Progress()
+    @Published var footprints = Footprints()
+    @Published var material: Material = .cotton
+    @Published var color: Color = .white
 }
 
 #Preview {
     ContentView()
+        .environmentObject(Settings())
 }
