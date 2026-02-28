@@ -20,6 +20,8 @@ struct CurrentView: View {
 
     var body: some View {
         switch (setting.progress.chapter) {
+        case (.zero):
+            Welcome()
         case (.one):
             ChapterOne()
         case (.two):
@@ -38,6 +40,7 @@ class Settings: ObservableObject {
     @Published var footprints = Footprints()
     @Published var material: Material = .cotton
     @Published var color: Color = .white
+    @Published var production: Production? = nil
 }
 
 #Preview {

@@ -8,7 +8,7 @@
 import Foundation
 
 struct Progress {
-    var chapter: Chapter = .one
+    var chapter: Chapter = .zero
     var page: Int = 1
     
     mutating func goTo(chapter: Chapter, page: Int) {

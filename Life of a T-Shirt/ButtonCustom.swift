@@ -16,7 +16,7 @@ struct ButtonCustom: ButtonStyle {
             .foregroundStyle(.white)
             .padding(.horizontal, 20)
             .padding(.vertical, 15)
-            .background(configuration.isPressed ? .blue.opacity(0.8) : .blue)
+            .background(configuration.isPressed ? .black.opacity(0.8) : .black)
             .cornerRadius(14)
     }
 }
