@@ -7,27 +7,22 @@
 
 import SwiftUI
 
-struct ReplaceView: View {
+struct ThrownAway: View {
     @EnvironmentObject var setting: Settings
 
     var body: some View {
-        Text("You decide to get a new one.")
-        Text("Let's what happens to discarded clothes.")
+        Text("You decide to throw your T-shirt away.")
+        Text("Its journey with you comes to an end.")
         
-        Button("Next") {
+        Button("Continue") {
             setting.progress.goTo(chapter: .three, page: 6)
         }.buttonStyle(ButtonCustom())
     }
 }
 
-struct Landfill: View {
-    var body: some View {
-        Text("Stats here")
-       
-    }
-}
+
 
 #Preview {
-    ReplaceView()
+    ThrownAway()
         .environmentObject(Settings())
 }

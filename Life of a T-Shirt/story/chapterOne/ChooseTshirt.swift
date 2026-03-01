@@ -1,9 +1,3 @@
-//
-//  chooseTshirt.swift
-//  Life of a T-shirt
-//
-//  Created by Heena Pong on 2026-02-21.
-//
 
 import SwiftUI
 
@@ -14,12 +8,19 @@ struct ChooseTshirt: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                Text("Design your new t-shirt!")
+                Text(highlight("Chapter One: A New T-Shirt", target: "A New T-Shirt"))
                     .foregroundColor(.black)
                     .fontWeight(.black)
                     .font(.largeTitle)
                     .multilineTextAlignment(.center)
                     .padding(.top, 100)
+                
+                Text("Design your new t-shirt!")
+                    .foregroundColor(.black)
+                    .fontWeight(.semibold)
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 25)
 
                 // 50/50 horizontal split using GeometryReader
                 GeometryReader { geo in
@@ -40,12 +41,21 @@ struct ChooseTshirt: View {
 
                 // button section
                 Button("Go to production →") {
+                    if setting.material == .cotton {
+                        setting.footprints.increaseWaterMeter(amount: 4)
+                        setting.footprints.increaseCarbonMeter(amount: 2)
+                        setting.footprints.increaseMicroPlastic(amount: 0)
+                    } else if setting.material == .polyester {
+                        setting.footprints.increaseWaterMeter(amount: 1)
+                        setting.footprints.increaseCarbonMeter(amount: 3)
+                        setting.footprints.increaseMicroPlastic(amount: 3)
+                    }
                     setting.progress.goTo(chapter: .one, page: 2)
                 }
                 .buttonStyle(ButtonCustom())
                 .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.horizontal, 30)
-                .padding(.bottom, 16)
+                .padding(.trailing, 60)
+                .padding(.bottom, 40)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .notebookBackground()
@@ -65,7 +75,6 @@ struct ChoiceView: View {
     var body: some View {
         VStack(spacing: 50) {
             MaterialView()
-            ColorView()
         }
         .padding(.horizontal, 24)
         //.background(.white)
@@ -81,62 +90,16 @@ struct TShirtView: View {
         GeometryReader { geo in
             VStack(spacing: 12) {
                 Spacer()
-                Image(systemName: "tshirt.fill")
+                Image("kitty")
                     .resizable()
                     .scaledToFit()
                     // shirt scales with available height, max 60% of the panel height
                     .frame(height: geo.size.height * 0.55)
-                    .foregroundColor(setting.color)
-
-                Text("Your design")
-                    .font(.custom("Bradley Hand", size: geo.size.width * 0.045))
-                    .foregroundColor(Color(hex: "#1a1a2e").opacity(0.9))
-                    .padding(.top, 20)
+                    .foregroundColor(setting.color.color)
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-    }
-}
-
-// MARK: - Color View
-
-struct ColorView: View {
-    @EnvironmentObject var setting: Settings
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Pick a colour")
-                .foregroundColor(.black)
-                .fontWeight(.bold)
-                .font(.title3)
-
-            HStack(spacing: 18) {
-                ForEach(Palette.allCases, id: \.self) { col in
-                    let isSelected = setting.color == Color(col.color)
-
-                    Circle()
-                        .fill(Color(col.color))
-                        .frame(width: 38, height: 38)
-                        .overlay(
-                            Circle()
-                                .strokeBorder(Color.white, lineWidth: isSelected ? 2.5 : 0)
-                                .padding(-2.5)
-                        )
-                        .overlay(
-                            Circle()
-                                .strokeBorder(Color.black, lineWidth: isSelected ? 2 : 0)
-                                .padding(-7)
-                        )
-                        .scaleEffect(isSelected ? 1.08 : 1.0)
-                        .animation(.easeInOut(duration: 0.2), value: isSelected)
-                        .onTapGesture {
-                            setting.color = Color(col.color)
-                        }
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -151,7 +114,7 @@ struct MaterialView: View {
             Text("Choose a material")
                 .foregroundColor(.black)
                 .fontWeight(.bold)
-                .font(.title3)
+                .font(.title)
 
             VStack(spacing: 12) {
                 ForEach(Material.allCases, id: \.self) { type in
@@ -218,7 +181,7 @@ struct MaterialCheckbox: View {
                 Button(action: onInfo) {
                     Image(systemName: "info.circle")
                         .font(.system(size: 17))
-                        .foregroundColor(Color(hex: "#1a1a2e").opacity(0.35))
+                        .foregroundColor(.black)
                 }
             }
             .onTapGesture { onSelect() }
@@ -273,9 +236,11 @@ struct InfoOverlay: View {
             }
             .padding(22)
             .background(
-                RoundedRectangle(cornerRadius: 15)
+                RoundedRectangle(cornerRadius: 20)
                     .fill(Color(hex: "#fefcf5"))
+                    .stroke(Color.black, lineWidth: 1.5)
                     .shadow(color: Color.black.opacity(0.1), radius: 18, y: 6)
+                
             )
             .padding(.horizontal, 200)
             .scaleEffect(appeared ? 1 : 0.93)

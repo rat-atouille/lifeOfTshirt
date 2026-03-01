@@ -20,10 +20,7 @@ struct ChapterOne: View {
             ProductionView()
                 .transition(.slide)
         case (.one, 3):
-            SlowView()
-                .transition(.slide)
-        case (.one, 4):
-            FastView()
+            ChapterOneResult()
                 .transition(.slide)
         default:
             Text("")

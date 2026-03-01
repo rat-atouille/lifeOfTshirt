@@ -19,7 +19,6 @@ struct BackgroundView: View {
                 VStack(spacing: 0) {
                     ForEach(0..<Int(geometry.size.height / 32), id: \.self) { _ in
                         Divider()
-                            .background(Color.blue.opacity(0.2))
                             .frame(height: 1)
                         Spacer()
                             .frame(height: 31)
@@ -32,7 +31,7 @@ struct BackgroundView: View {
                     .frame(width: 2)
                     .offset(x: 50)
             }
-           // .ignoresSafeArea()
+            .ignoresSafeArea()
         }
     }
 }

@@ -36,7 +36,7 @@ struct WashingGame: View {
                         if index < circleCount {
                             Image(systemName: "checkmark.circle.fill")
                                 .font(.system(size: 40))
-                                .foregroundColor(.green)
+                                .foregroundColor(.blue)
                                 .transition(.scale)
                         } else if index == circleCount {
                             Circle()
@@ -94,11 +94,11 @@ struct WashingGame: View {
                     VStack {
                         Image(systemName: "sparkles")
                             .font(.system(size: 60))
-                            .foregroundColor(.green)
+                            .foregroundColor(.blue)
                         Text("Clean!")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(.green)
+                            .foregroundColor(.blue)
                     }
                     .scaleEffect(gameComplete ? 1 : 0)
                     .animation(.spring(response: 0.5, dampingFraction: 0.6), value: gameComplete)
@@ -147,9 +147,9 @@ struct WashingGame: View {
                     if setting.material == .polyester {
                         HStack {
                             Image(systemName: "drop.fill")
-                                .foregroundColor(.orange)
-                            Text("Microplastics released")
-                                .foregroundColor(.orange)
+                                .foregroundColor(.red)
+                            Text("Hundreds to thousands of microplastics released")
+                                .foregroundColor(.red)
                         }
                     }
                     
@@ -158,11 +158,16 @@ struct WashingGame: View {
                         setting.progress.goTo(chapter: .two, page: 3)
                     }
                     .buttonStyle(ButtonCustom())
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.horizontal, 25)
+                    .padding(.vertical, 25)
+                    .border(Color.blue, width: 3)
                 }
                 .padding()
             }
         }
         .padding()
+        .notebookBackground()
     }
     
     func handleContinuousDrawing(at location: CGPoint) {
@@ -227,9 +232,24 @@ struct WashingGame: View {
     
     func applyWashingEffects() {
         if setting.material == .polyester {
+            // cold
             setting.footprints.increaseCarbonMeter(amount: 2)
+            setting.footprints.increaseWaterMeter(amount: 2)
+            setting.footprints.increaseMicroPlastic(amount: 2)
+
+            // hot wash
+            setting.footprints.increaseCarbonMeter(amount: 2)
+            setting.footprints.increaseMicroPlastic(amount: 4)
+            setting.footprints.increaseWaterMeter(amount: 3)
+        } else {
+            // cold
+            setting.footprints.increaseCarbonMeter(amount: 2)
+            setting.footprints.increaseWaterMeter(amount: 1)
+
+            // hot wash
+            setting.footprints.increaseCarbonMeter(amount: 3)
+            setting.footprints.increaseWaterMeter(amount: 0)
         }
-        setting.footprints.increaseWaterMeter(amount: 5)
     }
 }
 

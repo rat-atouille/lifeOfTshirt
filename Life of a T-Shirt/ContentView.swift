@@ -24,6 +24,7 @@ struct CurrentView: View {
             Welcome()
         case (.one):
             ChapterOne()
+            let _ = print(setting)
         case (.two):
             ChapterTwo()
         case (.three):
@@ -39,7 +40,7 @@ class Settings: ObservableObject {
     @Published var progress = Progress()
     @Published var footprints = Footprints()
     @Published var material: Material = .cotton
-    @Published var color: Color = .white
+    @Published var color: Palette = .white
     @Published var production: Production? = nil
 }
 

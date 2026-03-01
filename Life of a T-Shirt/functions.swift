@@ -24,11 +24,15 @@ struct Footprints {
     var numberOfUses: Int = 0
     var carbonMeter: Int =  0
     var waterMeter:  Int = 0
+    var microplasticMeter: Int = 0
     
     mutating func increaseNumberOfUses(amount: Int) {
         numberOfUses += amount
     }
     
+    mutating func increaseMicroPlastic(amount: Int) {
+        microplasticMeter += amount
+    }
     mutating func increaseTshirtHealth(amount: Int) {
         tshirtHealth += amount
     }
@@ -40,6 +44,16 @@ struct Footprints {
     mutating func increaseWaterMeter(amount: Int) {
         waterMeter += amount
     }
+}
+
+func highlight(_ full: String, target: String) -> AttributedString {
+    var attributed = AttributedString(full)
+
+    if let range = attributed.range(of: target) {
+        attributed[range].backgroundColor = .yellow
+    }
+
+    return attributed
 }
 
 

@@ -11,36 +11,15 @@ struct RepairView: View {
     @EnvironmentObject var setting: Settings
 
     var body: some View {
-        Text("You decide to get a repair one.")
-        Text("Let's stitch up the holes!")
+        Text("You decide to repair your T-shirt.")
+        Text("With a small fix, it can be worn again.")
         
-        Button("Next") {
+        Button("Repair your T-shirt") {
             setting.progress.goTo(chapter: .three, page: 4)
         }.buttonStyle(ButtonCustom())
     }
 }
 
-struct RepairGame: View {
-    @EnvironmentObject var setting: Settings
-
-    var body: some View {
-        Text("something here")
-        Button("Next") {
-            setting.progress.goTo(chapter: .three, page: 7)
-        }.buttonStyle(ButtonCustom())
-    }
-}
-
-struct FixedView: View {
-    @EnvironmentObject var setting: Settings
-
-    var body: some View {
-        Text("All fixed! As good as new. Almost!")
-        Button("Next") {
-            setting.progress.goTo(chapter: .four, page: 1)
-        }.buttonStyle(ButtonCustom())
-    }
-}
 
 #Preview {
     RepairView()

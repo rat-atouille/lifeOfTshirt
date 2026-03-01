@@ -27,7 +27,7 @@ enum Material: String, CaseIterable {
     }
 }
 
-enum Production: String, CaseIterable {
+enum Production: String, CaseIterable  {
         case fast
         case slow
     
@@ -38,29 +38,46 @@ enum Production: String, CaseIterable {
             }
         }
     
+        var bulletPoints: [String] {
+        switch self {
+        case .fast: return ["Low cost", "Widely available", "Trendy"]
+        case .slow: return ["Higher quality", "Longer lifespan", "Eco-friendly"]
+        }
+        }
         
         var description: String {
         switch self {
-        case .fast: return "Fast fashion prioritizes speed and low cost, often resulting in lower quality garments that wear out quickly and contribute to more waste."
-        case .slow: return "Slow fashion focuses on durability and responsible production, reducing waste and environmental impact over time."
+        case .fast:
+            return "Fast fashion makes clothes quickly so stores can sell the latest trends right away. This gives people many style choices at lower prices. These clothes are often made in large amounts using faster production methods. Because trends change often, people may wear these items for a shorter time before getting something new. Fast fashion clothes are usually made from cheaper fabrics and materials."
+
+        case .slow: 
+            return "Slow fashion focuses on making clothes that last longer and can be worn for many years. These clothes often use designs that don’t go out of style quickly. They may be made with more attention to materials and how they are put together. People may keep and wear these clothes longer before replacing them. Slow fashion clothes are usually made from natural fibers such as cotton or recycled fabrics."
         }
     }
 }
 
 enum Palette: String, CaseIterable {
     case white
-    case red
     case yellow
-    case blue
     case black
     
     var color: Color {
         switch self {
-        case .red: return .red
-        case .blue: return .blue
         case .yellow: return .yellow
         case .white: return .white
         case .black: return .black
+        }
+    }
+}
+
+enum HotOrCold: String, CaseIterable {
+    case hot
+    case cold
+    
+    var description: String {
+        switch self {
+        case .hot: return ""
+        case .cold: return ""
         }
     }
 }

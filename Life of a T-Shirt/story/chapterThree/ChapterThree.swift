@@ -13,19 +13,17 @@ struct ChapterThree: View {
     var body: some View {
         switch(setting.progress.chapter, setting.progress.page) {
         case (.three, 1):
-            ShirtTearView()
+            ChapterThreeIntro()
         case (.three, 2):
-            Decide()
+            ShirtTearView()
         case (.three, 3):
             RepairView()
         case (.three, 4):
             RepairGame()
         case (.three, 5):
-            ReplaceView()
+            ThrownAway()
         case (.three, 6):
             Landfill()
-        case (.three, 7):
-            FixedView()
         default:
             Text("")
         }
