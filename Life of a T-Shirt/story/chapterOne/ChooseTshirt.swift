@@ -11,16 +11,17 @@ struct ChooseTshirt: View {
                 Text(highlight("Chapter One: A New T-Shirt", target: "A New T-Shirt"))
                     .foregroundColor(.black)
                     .fontWeight(.black)
-                    .font(.largeTitle)
+                    .font(.system(size:50))
                     .multilineTextAlignment(.center)
-                    .padding(.top, 100)
+                    .padding(.top, 60)
                 
                 Text("Design your new t-shirt!")
-                    .foregroundColor(.black)
+                    .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
                     .fontWeight(.semibold)
                     .font(.title)
+                    .italic()
                     .multilineTextAlignment(.center)
-                    .padding(.top, 25)
+                    .padding(.top, 20)
 
                 // 50/50 horizontal split using GeometryReader
                 GeometryReader { geo in
@@ -37,7 +38,7 @@ struct ChooseTshirt: View {
                             .padding(.leading, 40)
                             .frame(width: geo.size.width * 0.5, height: geo.size.height)
                     }
-                }
+                }.padding(.bottom, 30)
 
                 // button section
                 Button("Go to production →") {
@@ -74,10 +75,13 @@ struct ChooseTshirt: View {
 struct ChoiceView: View {
     var body: some View {
         VStack(spacing: 50) {
+            Spacer()
             MaterialView()
+            ColorView()
         }
-        .padding(.horizontal, 24)
-        //.background(.white)
+        .padding(.horizontal, 10)
+        .padding(.bottom, 40)
+       // .border(.blue, width: 3)
     }
 }
 
@@ -87,19 +91,16 @@ struct TShirtView: View {
     @EnvironmentObject var setting: Settings
 
     var body: some View {
-        GeometryReader { geo in
-            VStack(spacing: 12) {
+            VStack {
                 Spacer()
-                Image("kitty")
+                Image("defaultKit")
                     .resizable()
                     .scaledToFit()
-                    // shirt scales with available height, max 60% of the panel height
-                    .frame(height: geo.size.height * 0.55)
-                    .foregroundColor(setting.color.color)
-                Spacer()
-            }
+                    .frame( height: 500)
+                    .grayscale(setting.color == .gray ? 1.0 : 0.0)
+                    //.border(.blue, width: 3)
+            }.padding(.leading, 100)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
     }
 }
 
@@ -115,6 +116,7 @@ struct MaterialView: View {
                 .foregroundColor(.black)
                 .fontWeight(.bold)
                 .font(.title)
+               .padding(.bottom, 5)
 
             VStack(spacing: 12) {
                 ForEach(Material.allCases, id: \.self) { type in
@@ -125,7 +127,7 @@ struct MaterialView: View {
                         onInfo: { openMaterialInfo(type) }
                     )
                 }
-            }
+            }.padding(.leading, 7)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -153,7 +155,7 @@ struct MaterialCheckbox: View {
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.black, lineWidth: isSelected ? 2 : 0)
+                            .stroke(Color.black, lineWidth: isSelected ? 2.5 : 0)
                             .padding(-5)
                     )
                     .overlay(
@@ -166,7 +168,8 @@ struct MaterialCheckbox: View {
 
                 if isSelected {
                     Image(systemName: "checkmark")
-                        .font(.system(size: 14, weight: .bold))
+                        .font(.headline)
+                        .fontWeight(.bold)
                         .foregroundColor(Color(hex: "#1a1a2e"))
                 }
             }
@@ -176,12 +179,13 @@ struct MaterialCheckbox: View {
             HStack(spacing: 8) {
                 Text(type.rawValue.capitalized)
                     .foregroundColor(.black)
-                    .font(.body)
+                    .font(.title2)
+                    .fontWeight(.semibold)
 
                 Button(action: onInfo) {
-                    Image(systemName: "info.circle")
-                        .font(.system(size: 17))
-                        .foregroundColor(.black)
+                    Image(systemName: "info.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(Color(hex: "#1a1a2e").opacity(0.35))
                 }
             }
             .onTapGesture { onSelect() }
@@ -212,7 +216,7 @@ struct InfoOverlay: View {
                 HStack {
                     Text(material.rawValue.capitalized)
                         .fontWeight(.black)
-                        .font(.title)
+                        .font(.largeTitle)
                         .foregroundColor(Color(hex: "#1a1a2e"))
                     Spacer()
                     Button(action: { dismiss() }) {
@@ -229,15 +233,17 @@ struct InfoOverlay: View {
                 Text(material.keypoint)
                     .foregroundColor(.black)
                     .fontWeight(.semibold)
+                    .font(.title)
                 Text(material.description)
                     .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
+                    .font(.title2)
                     .lineSpacing(5)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(22)
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(Color(hex: "#fefcf5"))
+                    .fill(Color(hex: "#FFD54F"))
                     .stroke(Color.black, lineWidth: 1.5)
                     .shadow(color: Color.black.opacity(0.1), radius: 18, y: 6)
                 
@@ -288,6 +294,73 @@ extension Color {
         }
         self.init(.sRGB, red: Double(r)/255, green: Double(g)/255,
                   blue: Double(b)/255, opacity: Double(a)/255)
+    }
+}
+
+// MARK: - Color View
+
+struct ColorView: View {
+    @EnvironmentObject var setting: Settings
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text("Choose a color")
+                .foregroundColor(.black)
+                .fontWeight(.bold)
+                .font(.title)
+
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 44), spacing: 10)], spacing: 10) {
+                ForEach(Palette.allCases, id: \.self) { palette in
+                    ColorSwatch(palette: palette, isSelected: setting.color == palette) {
+                        setting.color = palette
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+struct ColorSwatch: View {
+    let palette: Palette
+    let isSelected: Bool
+    let onSelect: () -> Void
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(palette.color)
+                .frame(width: 44, height: 44)
+                .overlay(
+                    Circle()
+                        .stroke(Color.black, lineWidth: isSelected ? 2.5 : 0)
+                        .padding(-4)
+                )
+                .overlay(
+                    Circle()
+                        .stroke(Color.white, lineWidth: isSelected ? 2 : 0)
+                        .padding(-1)
+                )
+
+            if isSelected {
+                Image(systemName: "checkmark")
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(palette.color.isDark ? .white : .black)
+            }
+        }
+        .scaleEffect(isSelected ? 1.1 : 1.0)
+        .animation(.spring(response: 0.25, dampingFraction: 0.7), value: isSelected)
+        .onTapGesture { onSelect() }
+    }
+}
+
+// Helper to detect dark colors for checkmark contrast
+extension Color {
+    var isDark: Bool {
+        switch self {
+        case .black, .gray, .blue, .indigo, .purple, .brown, .red, .green: return true
+        default: return false
+        }
     }
 }
 

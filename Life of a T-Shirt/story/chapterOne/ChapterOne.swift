@@ -19,9 +19,6 @@ struct ChapterOne: View {
         case (.one, 2):
             ProductionView()
                 .transition(.slide)
-        case (.one, 3):
-            ChapterOneResult()
-                .transition(.slide)
         default:
             Text("")
         }

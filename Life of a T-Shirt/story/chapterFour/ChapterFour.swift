@@ -14,7 +14,7 @@ struct ChapterFour: View {
         
         switch (setting.progress.chapter, setting.progress.page) {
         case (.four, 1):
-            RepairEnding()
+            Ending()
         case (.four, 2):
             Dashboard()
         default:

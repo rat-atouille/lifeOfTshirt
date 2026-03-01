@@ -57,30 +57,34 @@ enum Production: String, CaseIterable  {
 }
 
 enum Palette: String, CaseIterable {
-    case white
     case yellow
-    case black
-    
+    case gray
+
     var color: Color {
         switch self {
         case .yellow: return .yellow
-        case .white: return .white
-        case .black: return .black
+        case .gray: return .gray
         }
     }
 }
 
-enum HotOrCold: String, CaseIterable {
-    case hot
-    case cold
-    
-    var description: String {
-        switch self {
-        case .hot: return ""
-        case .cold: return ""
-        }
-    }
+enum RepairOrThrownAway: String, CaseIterable {
+    case repair
+    case thrownAway
+
 }
+
+//enum HotOrCold: String, CaseIterable {
+//    case hot
+//    case cold
+//    
+//    var description: String {
+//        switch self {
+//        case .hot: return ""
+//        case .cold: return ""
+//        }
+//    }
+//}
 
 enum Chapter: Int, CaseIterable {
     case zero = 0

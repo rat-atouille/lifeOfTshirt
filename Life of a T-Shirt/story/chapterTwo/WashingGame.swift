@@ -17,13 +17,19 @@ struct WashingGame: View {
     @State private var particlePositions: [CGPoint] = []
     
     let targetCircles: Int = 3
-    let centerPoint = CGPoint(x: 175, y: 175)
+    let centerPoint = CGPoint(x: 175, y: 270)
     
     var body: some View {
         VStack {
             Text("Roll the washing machine!")
-                .font(.title)
-                .fontWeight(.bold)
+                .font(.largeTitle)
+                .fontWeight(.black)
+                .padding(.bottom, 5)
+            Text("Draw circles in the dotted space area to wash our laundry.")
+                .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
+                .fontWeight(.semibold)
+                .font(.title2)
+                .italic()
             
             // Progress circles
             HStack(spacing: 20) {
@@ -47,23 +53,27 @@ struct WashingGame: View {
                                 .animation(.linear(duration: 0.1), value: totalAngle)
                         }
                     }
-                }
+                }.padding(.top, 15)
             }
-            .padding()
             
             // Drawing canvas
             ZStack {
-                // Washing machine drum layers
+                Image("washKitty")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 600, height: 500)
+                
                 ForEach([300, 280, 260], id: \.self) { size in
                     Circle()
-                        .stroke(Color.gray.opacity(0.2), lineWidth: 2)
+                        .stroke(Color.blue, style: StrokeStyle(lineWidth: 3, dash: [10, 5]))
                         .frame(width: CGFloat(size), height: CGFloat(size))
+                        .position(centerPoint)
                 }
                 
                 // Water particles animation
                 ForEach(particlePositions.indices, id: \.self) { index in
                     Circle()
-                        .fill(Color.blue.opacity(0.3))
+                        .fill(.blue)
                         .frame(width: 8, height: 8)
                         .position(particlePositions[index])
                 }
@@ -82,40 +92,26 @@ struct WashingGame: View {
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     ),
-                    style: StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round)
+                    style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round)
                 )
                 
                 // Center indicator
                 Circle()
-                    .fill(Color.blue.opacity(0.5))
-                    .frame(width: 15, height: 15)
+                    .fill(.blue)
+                    .frame(width: 8, height: 8)
+                    .position(centerPoint)
                 
                 if gameComplete {
                     VStack {
                         Image(systemName: "sparkles")
                             .font(.system(size: 60))
                             .foregroundColor(.blue)
-                        Text("Clean!")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
                     }
                     .scaleEffect(gameComplete ? 1 : 0)
                     .animation(.spring(response: 0.5, dampingFraction: 0.6), value: gameComplete)
                 }
             }
-            .frame(width: 350, height: 350)
-            .background(
-                RoundedRectangle(cornerRadius: 30)
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.white, Color.blue.opacity(0.05)]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                    .shadow(color: .blue.opacity(0.3), radius: 15)
-            )
+            .frame(width: 600, height: 500)
             .gesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { value in
@@ -138,7 +134,8 @@ struct WashingGame: View {
             if !gameComplete {
                 Text("Keep drawing circles!")
                     .foregroundColor(.blue)
-                    .font(.headline)
+                    .font(.title2)
+                    .fontWeight(.bold)
                     .padding(.top, 8)
             }
             
@@ -160,13 +157,10 @@ struct WashingGame: View {
                     .buttonStyle(ButtonCustom())
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.horizontal, 25)
-                    .padding(.vertical, 25)
-                    .border(Color.blue, width: 3)
                 }
                 .padding()
             }
         }
-        .padding()
         .notebookBackground()
     }
     

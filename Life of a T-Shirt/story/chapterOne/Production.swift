@@ -15,8 +15,9 @@ struct ProductionView: View {
     var body: some View {
         ZStack {
             VStack {
-                Text("Where are you getting your T-shirt from?")
-                    .font(Font.largeTitle.bold())
+                Text(highlight("Where are you getting your T-shirt from?", target: "T-shirt"))
+                    .font(.largeTitle)
+                    .fontWeight(.black)
                     .padding(.horizontal, 25)
                     .padding(.vertical, 25)
 
@@ -41,7 +42,7 @@ struct ProductionView: View {
                         // higher carbon and lower durability
                         setting.footprints.increaseCarbonMeter(amount: 3)
                     }
-                    setting.progress.goTo(chapter: .one, page: 3)
+                    setting.progress.goTo(chapter: .two, page: 1)
 //                    if setting.production == .slow {
 //                        setting.progress.goTo(chapter: .one, page: 3)
 //                    } else if setting.production == .fast {
@@ -80,8 +81,8 @@ struct ProductionCard: View {
         let content = VStack(spacing: 20) {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.gray.opacity(0.15))
-                .frame(maxWidth: .infinity)
-                .frame(height: 400)
+                .frame(maxWidth: 300)
+                .frame(height: 300)
                 .overlay(
                     VStack(spacing: 8) {
                         Image(systemName: "photo")
@@ -100,7 +101,7 @@ struct ProductionCard: View {
                     .foregroundColor(.black)
 
                 Button(action: onInfo) {
-                    Image(systemName: "info.circle")
+                    Image(systemName: "info.circle.fill")
                         .font(.system(size: 17))
                         .foregroundColor(Color(hex: "#1a1a2e").opacity(0.35))
                 }
@@ -110,17 +111,22 @@ struct ProductionCard: View {
                     ForEach(bulletPoints, id: \.self) { point in
                         Text(point)
                         
-                    }.padding(.horizontal, 15)
-                        .padding(.vertical, 10)
-                    .background(.gray)
-                    .foregroundStyle(Color.white)
-                    .fontWeight(.semibold)
+                    }.padding(.horizontal, 12)
+                    .padding(.vertical, 7)
+                    .background(Color(hex: "#FFD54F"))
+                    .foregroundStyle(.black)
+                   // .fontWeight(.semibold)
+                    .font(.headline)
                     .cornerRadius(20)
+                    .overlay(
+                           RoundedRectangle(cornerRadius: 25)
+                               .stroke(Color.black, lineWidth: 2)
+                       )
                 }
             }
         }
         .padding(20)
-        .frame(maxWidth: .infinity, alignment: .top)
+        .frame(maxWidth: 500, alignment: .top)
         .background(isSelected ? Color.black.opacity(0.06) : Color.clear)
         .contentShape(Rectangle())
         .onTapGesture {
@@ -179,16 +185,18 @@ struct ProductionInfoOverlay: View {
                 Text(option.keypoint)
                     .foregroundColor(.black)
                     .fontWeight(.semibold)
+                    .font(.title2)
 
                 Text(option.description)
                     .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
                     .lineSpacing(5)
+                    .font(.title3)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(22)
             .background(
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(Color(hex: "#fefcf5"))
+                    .fill(Color(hex: "#FFD54F"))
                     .stroke(Color.black, lineWidth: 1.5)
                     .shadow(color: Color.black.opacity(0.1), radius: 18, y: 6)
             )

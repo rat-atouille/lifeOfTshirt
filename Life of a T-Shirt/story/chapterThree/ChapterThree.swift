@@ -17,12 +17,8 @@ struct ChapterThree: View {
         case (.three, 2):
             ShirtTearView()
         case (.three, 3):
-            RepairView()
-        case (.three, 4):
             RepairGame()
-        case (.three, 5):
-            ThrownAway()
-        case (.three, 6):
+        case (.three, 4):
             Landfill()
         default:
             Text("")

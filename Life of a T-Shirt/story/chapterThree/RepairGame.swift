@@ -125,11 +125,11 @@ struct RepairGame: View {
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
-                    .background(Color.white)
-                    .cornerRadius(15)
+                    .background(Color(hex: "#FFD54F"))
+                    .cornerRadius(30)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.black, lineWidth: 1.5)
+                        RoundedRectangle(cornerRadius: 30)
+                            .stroke(Color.black, lineWidth: 2)
                     )
                     .position(x: centerX, y: 48)
                 }
@@ -144,7 +144,7 @@ struct RepairGame: View {
                             .overlay(Color.black.opacity(0.4))
                             .ignoresSafeArea()
                         
-                        VStack(spacing: 20) {
+                        VStack(spacing: 15) {
                             Text("STITCHED")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
@@ -155,16 +155,25 @@ struct RepairGame: View {
                                 .frame(height: 1.5)
                                 .padding(.horizontal, 10)
                             Text("You repaired your T-shirt and gave it a longer life.")
-                                .foregroundColor(.black)
-                            Text("Repairing clothes helps reduce waste and lowers the need for new resources. Your T-shirt is ready to be worn again.")
-                                .foregroundColor(.black)
+                                .font(.title3)
+                                .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
+
+                            Text("Repairing clothes helps reduce waste and lowers the need for new resources.")
+                                .font(.title3)
+                                .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
+
+                            Text("Your T-shirt is ready to be worn again.")
+                                .font(.title3)
+                                .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
+
                             Button("Continue") {
                                 setting.progress.goTo(chapter: .four, page: 1)
                             }
                             .buttonStyle(ButtonCustom())
+                            .padding(.top, 15)
                         }
                         .padding(36)
-                        .background(.white)
+                        .background(Color(hex: "#FFD54F"))
                         .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)

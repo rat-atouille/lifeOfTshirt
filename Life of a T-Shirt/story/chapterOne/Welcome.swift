@@ -25,22 +25,29 @@ struct Welcome: View {
         VStack (alignment: .center) {
             VStack {
                 Text(highlight("Welcome to the Life of a T-Shirt", target:"Life of a T-Shirt"))
-                    .font(.largeTitle)
+                    .font(.system(size:50))
                     .fontWeight(.black)
                     .padding()
                 
-                Image("kitty")
+                Image("defaultKit")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 
                 Text("Follow the journey of a T-shirt and discover how everyday choices influence its lifespan and environmental footprint.")
                     .font(.title)
+                    .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 100)
+                    .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
+
                 
                 Text("Choose thoughtfully. Every decision shapes the outcome.")
                     .font(.title)
-                    .padding()
+                    .fontWeight(.semibold)
+                    .padding(.top, 10)
+                    .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
+
+                
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
             Button(action: {
                 setting.progress.goTo(chapter: .one, page: 1)
@@ -49,7 +56,7 @@ struct Welcome: View {
             }.buttonStyle(ButtonCustom())
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing, 60)
-                .padding(.bottom, 40)
+                .padding(.bottom, 30)
         }.notebookBackground()
     }
 }
