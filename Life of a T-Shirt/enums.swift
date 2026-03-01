@@ -86,6 +86,12 @@ enum RepairOrThrownAway: String, CaseIterable {
 //    }
 //}
 
+enum ImpactLevel: String {
+    case low = "Low"
+    case medium = "Medium"
+    case high = "High"
+}
+
 enum Chapter: Int, CaseIterable {
     case zero = 0
     case one = 1
@@ -98,7 +104,7 @@ enum Chapter: Int, CaseIterable {
         case .zero: return 1
         case .one: return 4
         case .two: return 3
-        case .three: return 7
+        case .three: return 4
         case .four: return 2
         }
     }

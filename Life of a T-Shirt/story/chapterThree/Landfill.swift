@@ -53,8 +53,6 @@ struct Landfill: View {
             
 
             Button("Continue") {
-                setting.footprints.increaseCarbonMeter(amount: 4)
-                setting.footprints.increaseWaterMeter(amount: 4)
                 setting.progress.goTo(chapter: .four, page: 1)
             }.buttonStyle(ButtonCustom())
                 .frame(maxWidth: .infinity, alignment: .trailing)

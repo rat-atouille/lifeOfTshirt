@@ -28,26 +28,27 @@ struct Dashboard: View {
                 .fontWeight(.black)
                 .padding()
             
-            VStack (spacing: 10) {
-                Text("Water used:")
+            VStack(spacing: 10) {
+                
+                Text("Water used: \(setting.footprints.waterImpact.rawValue)")
                     .font(.title)
                     .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 100)
-                    .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
-                Text("Carbon emitted:")
+                    .foregroundColor(color(for: setting.footprints.waterImpact))
+                
+                Text("Carbon emitted: \(setting.footprints.carbonImpact.rawValue)")
                     .font(.title)
                     .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 100)
-                    .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
-                Text("Microplastics released:")
+                    .foregroundColor(color(for: setting.footprints.carbonImpact))
+                
+                Text("Microplastics released: \(setting.footprints.microplasticImpact.rawValue)")
                     .font(.title)
                     .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 100)
-                    .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
+                    .foregroundColor(color(for: setting.footprints.microplasticImpact))
             }
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 100)
+            .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
+            
             Button(action: {
                 setting.progress.goTo(chapter: .one, page: 1)
             }) {

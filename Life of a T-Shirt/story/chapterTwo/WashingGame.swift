@@ -145,8 +145,9 @@ struct WashingGame: View {
                         HStack {
                             Image(systemName: "drop.fill")
                                 .foregroundColor(.red)
-                            Text("Hundreds to thousands of microplastics released")
+                            Text("Thousands of microplastics released during the washing process")
                                 .foregroundColor(.red)
+                                .fontWeight(.semibold)
                         }
                     }
                     
@@ -228,21 +229,21 @@ struct WashingGame: View {
         if setting.material == .polyester {
             // cold
             setting.footprints.increaseCarbonMeter(amount: 2)
-            setting.footprints.increaseWaterMeter(amount: 2)
+            setting.footprints.increaseWaterMeter(amount: 1)
             setting.footprints.increaseMicroPlastic(amount: 2)
 
             // hot wash
-            setting.footprints.increaseCarbonMeter(amount: 2)
-            setting.footprints.increaseMicroPlastic(amount: 4)
-            setting.footprints.increaseWaterMeter(amount: 3)
+//            setting.footprints.increaseCarbonMeter(amount: 2)
+//            setting.footprints.increaseMicroPlastic(amount: 4)
+//            setting.footprints.increaseWaterMeter(amount: 3)
         } else {
             // cold
             setting.footprints.increaseCarbonMeter(amount: 2)
             setting.footprints.increaseWaterMeter(amount: 1)
 
-            // hot wash
-            setting.footprints.increaseCarbonMeter(amount: 3)
-            setting.footprints.increaseWaterMeter(amount: 0)
+//            // hot wash
+//            setting.footprints.increaseCarbonMeter(amount: 3)
+//            setting.footprints.increaseWaterMeter(amount: 0)
         }
     }
 }

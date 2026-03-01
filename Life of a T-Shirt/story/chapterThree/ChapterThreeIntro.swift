@@ -18,7 +18,7 @@ struct ChapterThreeIntro: View {
                         .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))
                         .fontWeight(.semibold)
                         .font(.title)
-                        .padding(.top, 60)
+                        .padding(.top, 20)
                     
                     Text("It’s been with you through different days and memories.")
                         .foregroundColor(Color(hex: "#1a1a2e").opacity(0.72))

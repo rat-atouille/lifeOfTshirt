@@ -24,12 +24,12 @@ struct Welcome: View {
     var body: some View {
         VStack (alignment: .center) {
             VStack {
-                Text(highlight("Welcome to the Life of a T-Shirt", target:"Life of a T-Shirt"))
+                Text(highlight("Welcome to The Life of a T-Shirt", target:"The Life of a T-Shirt"))
                     .font(.system(size:50))
                     .fontWeight(.black)
                     .padding()
                 
-                Image("defaultKit")
+                Image("ending")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 

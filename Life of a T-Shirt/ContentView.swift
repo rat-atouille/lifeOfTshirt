@@ -39,10 +39,10 @@ struct CurrentView: View {
 class Settings: ObservableObject {
     @Published var progress = Progress()
     @Published var footprints = Footprints()
-    @Published var material: Material = .cotton
-    @Published var color: Palette = .yellow
+    @Published var material: Material? = nil
+    @Published var color: Palette? = nil
     @Published var production: Production? = nil
-    @Published var Ending: RepairOrThrownAway? = nil
+    @Published var ending: RepairOrThrownAway? = nil
 }
 
 #Preview {

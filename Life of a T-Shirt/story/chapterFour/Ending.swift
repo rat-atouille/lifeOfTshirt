@@ -15,14 +15,14 @@ struct Ending: View {
             
             VStack {
                 
-                // Title
+                // Chapter title
                 Text(highlight(chapterTitle, target: highlightTarget))
                     .font(.system(size: 50))
                     .fontWeight(.black)
                     .padding()
                 
+                // Description text
                 VStack(spacing: 13) {
-                    
                     Text(line1)
                         .font(.title)
                         .fontWeight(.semibold)
@@ -60,49 +60,65 @@ struct Ending: View {
     }
 }
 
+
+// MARK: - Computed text properties
 extension Ending {
     
     var chapterTitle: String {
-        if setting.RepairOrThrownAway == .repair {
+        switch setting.ending {
+        case .repair:
             return "Chapter Four: The Journey Continues"
-        } else {
+        case .thrownAway:
             return "Chapter Four: The Journey Ends"
+        case nil:
+            return "Chapter Four"
         }
     }
     
     var highlightTarget: String {
-        if setting.RepairOrThrownAway == .repair {
+        switch setting.ending {
+        case .repair:
             return "The Journey Continues"
-        } else {
+        case .thrownAway:
             return "The Journey Ends"
+        case nil:
+            return ""
         }
     }
     
     var line1: String {
-        if setting.RepairOrThrownAway == .repair {
+        switch setting.ending {
+        case .repair:
             return "Your T-shirt continues its journey with you."
-        } else {
+        case .thrownAway:
             return "Your T-shirt’s journey has come to an end."
+        case nil:
+            return ""
         }
     }
     
     var line2: String {
-        if setting.RepairOrThrownAway == .repair {
-            return "Every choice you made affected its impact on the environment."
-        } else {
-            return "Its environmental impact was shaped by the choices made during its life."
+        switch setting.ending {
+        case .repair:
+            return "Repairing it reduced waste and saved resources."
+        case .thrownAway:
+            return "Discarding it contributed to environmental waste."
+        case nil:
+            return ""
         }
     }
     
     var line3: String {
-        if setting.RepairOrThrownAway == .repair {
+        switch setting.ending {
+        case .repair:
             return "See the footprint of your T-shirt’s life so far."
-        } else {
+        case .thrownAway:
             return "See the total footprint of your T-shirt’s life."
+        case nil:
+            return ""
         }
     }
 }
-
 #Preview {
     Ending()
         .environmentObject(Settings())

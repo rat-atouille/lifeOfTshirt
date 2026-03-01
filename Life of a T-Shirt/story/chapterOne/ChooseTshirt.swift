@@ -22,24 +22,24 @@ struct ChooseTshirt: View {
                     .italic()
                     .multilineTextAlignment(.center)
                     .padding(.top, 20)
-
+                
                 // 50/50 horizontal split using GeometryReader
                 GeometryReader { geo in
                     HStack(spacing: 0) {
                         TShirtView()
                             .frame(width: geo.size.width * 0.5, height: geo.size.height)
-
+                        
                         // subtle divider
                         Rectangle()
                             .fill(Color(hex: "#1a1a2e").opacity(0.1))
                             .frame(width: 1)
-
+                        
                         ChoiceView()
                             .padding(.leading, 40)
                             .frame(width: geo.size.width * 0.5, height: geo.size.height)
                     }
                 }.padding(.bottom, 30)
-
+                
                 // button section
                 Button("Go to production →") {
                     if setting.material == .cotton {
@@ -54,6 +54,7 @@ struct ChooseTshirt: View {
                     setting.progress.goTo(chapter: .one, page: 2)
                 }
                 .buttonStyle(ButtonCustom())
+                .disabled(setting.color == nil || setting.material == nil)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing, 60)
                 .padding(.bottom, 40)
@@ -89,16 +90,23 @@ struct ChoiceView: View {
 
 struct TShirtView: View {
     @EnvironmentObject var setting: Settings
-
+    
     var body: some View {
             VStack {
                 Spacer()
-                Image("defaultKit")
-                    .resizable()
-                    .scaledToFit()
-                    .frame( height: 500)
-                    .grayscale(setting.color == .gray ? 1.0 : 0.0)
-                    //.border(.blue, width: 3)
+                if setting.color == nil && setting.color == nil {
+                    Image("robeKit")
+                        .resizable()
+                        .scaledToFit()
+                        .frame( height: 500)
+                        .grayscale(setting.color == .gray ? 1.0 : 0.0)
+                } else {
+                    Image("defaultKit")
+                        .resizable()
+                        .scaledToFit()
+                        .frame( height: 500)
+                        .grayscale(setting.color == .gray ? 1.0 : 0.0)
+                }
             }.padding(.leading, 100)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

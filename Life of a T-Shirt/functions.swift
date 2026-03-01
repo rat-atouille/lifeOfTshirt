@@ -5,6 +5,7 @@
 //  Created by Heena Pong on 2026-02-24.
 //
 
+import SwiftUI
 import Foundation
 
 struct Progress {
@@ -20,29 +21,52 @@ struct Progress {
 }
 
 struct Footprints {
-    var tshirtHealth: Int = 0
-    var numberOfUses: Int = 0
-    var carbonMeter: Int =  0
-    var waterMeter:  Int = 0
+    var carbonMeter: Int = 0
+    var waterMeter: Int = 0
     var microplasticMeter: Int = 0
-    
-    mutating func increaseNumberOfUses(amount: Int) {
-        numberOfUses += amount
-    }
-    
+
     mutating func increaseMicroPlastic(amount: Int) {
         microplasticMeter += amount
     }
-    mutating func increaseTshirtHealth(amount: Int) {
-        tshirtHealth += amount
-    }
-    
+
     mutating func increaseCarbonMeter(amount: Int) {
         carbonMeter += amount
     }
-    
+
     mutating func increaseWaterMeter(amount: Int) {
         waterMeter += amount
+    }
+
+    var carbonImpact: ImpactLevel {
+        switch carbonMeter {
+        case 0..<6: return .low
+        case 6..<10: return .medium
+        default: return .high
+        }
+    }
+
+    var waterImpact: ImpactLevel {
+        switch waterMeter {
+        case 0..<5: return .low
+        case 5..<8: return .medium
+        default: return .high
+        }
+    }
+
+    var microplasticImpact: ImpactLevel {
+        switch microplasticMeter {
+        case 0..<3: return .low
+        case 3..<6: return .medium
+        default: return .high
+        }
+    }
+}
+
+func color(for impact: ImpactLevel) -> Color {
+    switch impact {
+    case .low: return .green
+    case .medium: return .orange
+    case .high: return .red
     }
 }
 

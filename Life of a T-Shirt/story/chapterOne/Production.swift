@@ -36,18 +36,14 @@ struct ProductionView: View {
 
                 Button("Continue") {
                     if setting.production == .slow {
-                        // higher durability -> fewer replacements -> fewer total impacts
                         setting.footprints.increaseCarbonMeter(amount: 2)
+                        setting.footprints.increaseWaterMeter(amount: 1)
                     } else if setting.production == .fast {
-                        // higher carbon and lower durability
-                        setting.footprints.increaseCarbonMeter(amount: 3)
+                        setting.footprints.increaseCarbonMeter(amount: 4)
+                        setting.footprints.increaseWaterMeter(amount: 2)
+                        setting.footprints.increaseMicroPlastic(amount: 1)
                     }
                     setting.progress.goTo(chapter: .two, page: 1)
-//                    if setting.production == .slow {
-//                        setting.progress.goTo(chapter: .one, page: 3)
-//                    } else if setting.production == .fast {
-//                        setting.progress.goTo(chapter: .one, page: 4)
-//                    }
                 }
                 .buttonStyle(ButtonCustom())
                 .disabled(setting.production == nil)
@@ -74,26 +70,28 @@ struct ProductionCard: View {
     @Binding var chosenOption: String
     let onInfo: () -> Void
     let bulletPoints: [String]
-    
+
     var isSelected: Bool { chosenOption == option }
 
     var body: some View {
         let content = VStack(spacing: 20) {
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.gray.opacity(0.15))
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white.opacity(0.15))
                 .frame(maxWidth: 300)
                 .frame(height: 300)
                 .overlay(
-                    VStack(spacing: 8) {
-                        Image(systemName: "photo")
-                            .font(.system(size: 36))
-                            .foregroundColor(.gray.opacity(0.4))
-                        Text("Image placeholder")
-                            .font(.caption)
-                            .foregroundColor(.gray.opacity(0.4))
-                    }
+                    Image(option)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 300, height: 400)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                 )
-
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.black, lineWidth: 2)
+                )
+                .clipped()
+            
             HStack(spacing: 8) {
                 Text(title)
                     .font(.title2)
@@ -103,25 +101,26 @@ struct ProductionCard: View {
                 Button(action: onInfo) {
                     Image(systemName: "info.circle.fill")
                         .font(.system(size: 17))
-                        .foregroundColor(Color(hex: "#1a1a2e").opacity(0.35))
+                        .foregroundColor(Color(hex: "#1a1a2e").opacity(0.7))
                 }
             }
+
             HStack {
-                HStack (spacing: 10){
+                HStack(spacing: 10) {
                     ForEach(bulletPoints, id: \.self) { point in
                         Text(point)
-                        
-                    }.padding(.horizontal, 12)
-                    .padding(.vertical, 7)
-                    .background(Color(hex: "#FFD54F"))
-                    .foregroundStyle(.black)
-                   // .fontWeight(.semibold)
-                    .font(.headline)
-                    .cornerRadius(20)
-                    .overlay(
-                           RoundedRectangle(cornerRadius: 25)
-                               .stroke(Color.black, lineWidth: 2)
-                       )
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 7)
+                            .background(Color(hex: "#FFD54F"))
+                            .foregroundStyle(.black)
+                            .font(.headline)
+                            .cornerRadius(20)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color.black, lineWidth: 2)
+                            )
+                            .shadow(color: Color.yellow.opacity(0.15), radius: 3, x: 0, y: 2)
+                    }
                 }
             }
         }
@@ -137,12 +136,12 @@ struct ProductionCard: View {
         return content
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.white, lineWidth: isSelected ? 2 : 0)
+                    .stroke(Color.white, lineWidth: 2)
                     .padding(-2)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.black, lineWidth: isSelected ? 2 : 0)
+                    .stroke(Color.black, lineWidth: isSelected ? 3 : 1.5)
                     .padding(-5)
             )
     }
